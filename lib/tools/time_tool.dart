@@ -23,11 +23,10 @@ class TimeTool {
     }
   }
 
-  static String timeStrByMs(int ms, {bool showTime = false}) {
-    // 根据传入时间判断是否是今天、本月、本年,
-    // 今天，返回 HH:mm
-    // 本月，返回 MM/dd HH:mm
-    // 本年，返回 yyyy/MM/dd HH:mm
+  static String timeStrByMs(int? ms) {
+    if(ms ==null){
+      return "";
+    }
 
     TimeType type = _timeType(ms);
     DateTime date = DateTime.fromMillisecondsSinceEpoch(ms);
