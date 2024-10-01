@@ -58,7 +58,7 @@ class ChatMessageBubble extends StatelessWidget {
 
     List<Widget> insideBubbleWidgets = [];
 
-    if (nicknameBuilder != null) {
+    if (nicknameBuilder != null && isLeft) {
       insideBubbleWidgets.add(
         Container(
           constraints: boxConstraints,
