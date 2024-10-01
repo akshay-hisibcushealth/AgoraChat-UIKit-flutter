@@ -61,6 +61,7 @@ class _CustomMessagesPageState extends State<CustomMessagesPage> {
             if (model.message.body.type == MessageType.VIDEO) {
               return ChatMessageListVideoItem(
                 model: model,
+                previousMessage: model,
                 onPlayTap: playVideo,
               );
             }
@@ -109,8 +110,8 @@ class _CustomMessagesPageState extends State<CustomMessagesPage> {
       final imageData = await VideoThumbnail.thumbnailData(
         video: video.path,
         imageFormat: ImageFormat.JPEG,
-        maxWidth:
-            200, // specify the width of the thumbnail, let the height auto-scaled to keep the source aspect ratio
+        maxWidth: 200,
+        // specify the width of the thumbnail, let the height auto-scaled to keep the source aspect ratio
         quality: 80,
       );
       if (imageData != null) {

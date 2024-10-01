@@ -17,6 +17,7 @@ class ChatMessageBubble extends StatelessWidget {
     this.bubbleColor,
     this.padding,
     this.maxWidth,
+    this.previousMessage
   });
 
   final double? maxWidth;
@@ -32,6 +33,7 @@ class ChatMessageBubble extends StatelessWidget {
   final WidgetBuilder? unreadFlagBuilder;
   final Color? bubbleColor;
   final EdgeInsets? padding;
+  final ChatMessageListItemModel? previousMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +41,15 @@ class ChatMessageBubble extends StatelessWidget {
     final boxConstraints = BoxConstraints(maxWidth: max);
     ChatMessage message = model.message;
     bool isLeft = message.direction == MessageDirection.RECEIVE;
+
     Widget content = Container(
       decoration: BoxDecoration(
         color: bubbleColor ??
             (isLeft
                 ? ChatUIKit.of(context)?.theme.receiveBubbleColor ??
-                    const Color.fromRGBO(242, 244, 245, 1)
+                const Color.fromRGBO(242, 244, 245, 1)
                 : ChatUIKit.of(context)?.theme.sendBubbleColor ??
-                    const Color.fromRGBO(71, 121, 217, 1)),
+                const Color.fromRGBO(71, 121, 217, 1)),
         borderRadius: BorderRadius.circular(isLeft ? 16 : 20),
       ),
       constraints: boxConstraints,
@@ -71,7 +74,7 @@ class ChatMessageBubble extends StatelessWidget {
       content = Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment:
-            isLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+        isLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end,
         children: insideBubbleWidgets.toList(),
       );
       insideBubbleWidgets.clear();
@@ -123,7 +126,8 @@ class ChatMessageBubble extends StatelessWidget {
       child: content,
     );
 
-    if (model.needTime) {
+    // Show time only when the date is different
+    if (_isDifferentDay(previousMessage?.message, message)) {
       content = Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -144,6 +148,17 @@ class ChatMessageBubble extends StatelessWidget {
         ],
       );
     }
+
     return content;
+  }
+
+
+  bool _isDifferentDay(ChatMessage? prevMessage, ChatMessage currentMessage) {
+    if (prevMessage == null) return true; // If there's no previous message, show time
+    DateTime prevDate = DateTime.fromMillisecondsSinceEpoch(prevMessage.serverTime);
+    DateTime currentDate = DateTime.fromMillisecondsSinceEpoch(currentMessage.serverTime);
+    return prevDate.year != currentDate.year ||
+        prevDate.month != currentDate.month ||
+        prevDate.day != currentDate.day;
   }
 }

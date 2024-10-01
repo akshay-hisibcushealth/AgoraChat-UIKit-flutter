@@ -19,9 +19,11 @@ class ChatMessageListItem extends StatelessWidget {
     this.bubbleColor,
     this.bubblePadding,
     this.unreadFlagBuilder,
+    required this.previousMessage,
   });
 
   final ChatMessageListItemModel model;
+  final ChatMessageListItemModel previousMessage;
   final ChatMessageTapAction? onTap;
   final ChatMessageTapAction? onBubbleLongPress;
   final ChatMessageTapAction? onBubbleDoubleTap;
@@ -50,6 +52,7 @@ class ChatMessageListItem extends StatelessWidget {
       avatarBuilder: avatarBuilder,
       nicknameBuilder: nicknameBuilder,
       onResendTap: onResendTap,
+      previousMessage: previousMessage,
     );
 
     return ret;
