@@ -308,7 +308,7 @@ class _ChatMessagesViewState extends State<ChatMessagesView> {
     if (time < 120 * 1000 && message.direction != MessageDirection.RECEIVE) {
       list.add(
         ChatBottomSheetItem.destructive(
-          AppLocalizations.of(context)?.uikitRecall ?? 'Recall',
+          AppLocalizations.of(context)?.uikitRecall ?? 'Delete For Everyone',
           onTap: () async {
             widget.messageListViewController.recallMessage(message);
             Navigator.of(context).pop();
