@@ -134,7 +134,8 @@ class ChatMessageBubble extends StatelessWidget {
               child: SizedBox(
                 height: 20,
                 child: Text(
-                  "${TimeTool.timeStrByMs(message.serverTime)} -- ${TimeTool.timeStrByMs(previousMessage?.serverTime)}",
+                  TimeTool.getMessageDate(
+                      message.serverTime, previousMessage?.serverTime),
                   style: ChatUIKit.of(context)?.theme.messagesListItemTsStyle ??
                       const TextStyle(color: Colors.grey, fontSize: 14),
                 ),
