@@ -284,15 +284,15 @@ class _ChatInputBarState extends State<ChatInputBar> {
                     child: _currentInputType == _ChatInputType.emoji
                         ? ChatImageLoader.loadImage(
                             "input_bar_btn_selected.png",
-                            width: 24,
-                            height: 24,
+                            width: 20,
+                            height: 20,
                           )
                         : Padding(
                             padding: const EdgeInsets.all(2),
                             child: ChatImageLoader.loadImage(
                               "input_bar_emoji.png",
-                              width: 24,
-                              height: 24,
+                              width: 20,
+                              height: 20,
                             ),
                           ),
                   ),
