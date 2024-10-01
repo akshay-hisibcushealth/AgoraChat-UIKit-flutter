@@ -3,24 +3,25 @@ import 'package:flutter/material.dart';
 import '../../../agora_chat_uikit.dart';
 
 class ChatMessageBubble extends StatelessWidget {
-  const ChatMessageBubble({
-    super.key,
-    required this.model,
-    required this.childBuilder,
-    this.unreadFlagBuilder,
-    this.onTap,
-    this.onBubbleLongPress,
-    this.onBubbleDoubleTap,
-    this.avatarBuilder,
-    this.nicknameBuilder,
-    this.onResendTap,
-    this.bubbleColor,
-    this.padding,
-    this.maxWidth,
-  });
+  const ChatMessageBubble(
+      {super.key,
+      required this.model,
+      required this.childBuilder,
+      this.unreadFlagBuilder,
+      this.onTap,
+      this.onBubbleLongPress,
+      this.onBubbleDoubleTap,
+      this.avatarBuilder,
+      this.nicknameBuilder,
+      this.onResendTap,
+      this.bubbleColor,
+      this.padding,
+      this.maxWidth,
+      this.previousMessage});
 
   final double? maxWidth;
   final ChatMessageListItemModel model;
+  final ChatMessage? previousMessage;
   final ChatMessageTapAction? onTap;
   final ChatMessageTapAction? onBubbleLongPress;
   final ChatMessageTapAction? onBubbleDoubleTap;
@@ -133,7 +134,7 @@ class ChatMessageBubble extends StatelessWidget {
               child: SizedBox(
                 height: 20,
                 child: Text(
-                  TimeTool.timeStrByMs(message.serverTime),
+                  "${TimeTool.timeStrByMs(message.serverTime)} -- ${previousMessage?.serverTime}",
                   style: ChatUIKit.of(context)?.theme.messagesListItemTsStyle ??
                       const TextStyle(color: Colors.grey, fontSize: 14),
                 ),

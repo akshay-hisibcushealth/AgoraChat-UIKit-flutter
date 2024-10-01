@@ -17,7 +17,8 @@ class ChatMessageListTextItem extends ChatMessageListItem {
     super.nicknameBuilder,
     super.bubbleColor,
     super.bubblePadding,
-    super.unreadFlagBuilder, required super.previousMessage,
+    super.unreadFlagBuilder,
+    super.previousMessage,
   });
 
   @override

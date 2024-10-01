@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:agora_chat_uikit/agora_chat_uikit.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../em_chat_define.dart';
@@ -23,7 +24,7 @@ class ChatMessageListItem extends StatelessWidget {
   });
 
   final ChatMessageListItemModel model;
-  final ChatMessageListItemModel? previousMessage;
+  final ChatMessage? previousMessage;
   final ChatMessageTapAction? onTap;
   final ChatMessageTapAction? onBubbleLongPress;
   final ChatMessageTapAction? onBubbleDoubleTap;
@@ -42,6 +43,7 @@ class ChatMessageListItem extends StatelessWidget {
   Widget getBubbleWidget(Widget content) {
     Widget ret = ChatMessageBubble(
       model: model,
+      previousMessage: previousMessage,
       padding: bubblePadding,
       bubbleColor: bubbleColor,
       childBuilder: (context) => content,
@@ -52,7 +54,6 @@ class ChatMessageListItem extends StatelessWidget {
       avatarBuilder: avatarBuilder,
       nicknameBuilder: nicknameBuilder,
       onResendTap: onResendTap,
-      // previousMessage: previousMessage,
     );
 
     return ret;
