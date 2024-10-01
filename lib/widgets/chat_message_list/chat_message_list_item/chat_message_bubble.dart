@@ -3,25 +3,24 @@ import 'package:flutter/material.dart';
 import '../../../agora_chat_uikit.dart';
 
 class ChatMessageBubble extends StatelessWidget {
-  const ChatMessageBubble(
-      {super.key,
-      required this.model,
-      required this.childBuilder,
-      this.unreadFlagBuilder,
-      this.onTap,
-      this.onBubbleLongPress,
-      this.onBubbleDoubleTap,
-      this.avatarBuilder,
-      this.nicknameBuilder,
-      this.onResendTap,
-      this.bubbleColor,
-      this.padding,
-      this.maxWidth,
-      this.previousMessage});
+  const ChatMessageBubble({
+    super.key,
+    required this.model,
+    required this.childBuilder,
+    this.unreadFlagBuilder,
+    this.onTap,
+    this.onBubbleLongPress,
+    this.onBubbleDoubleTap,
+    this.avatarBuilder,
+    this.nicknameBuilder,
+    this.onResendTap,
+    this.bubbleColor,
+    this.padding,
+    this.maxWidth,
+  });
 
   final double? maxWidth;
   final ChatMessageListItemModel model;
-  final ChatMessage? previousMessage;
   final ChatMessageTapAction? onTap;
   final ChatMessageTapAction? onBubbleLongPress;
   final ChatMessageTapAction? onBubbleDoubleTap;
@@ -124,7 +123,27 @@ class ChatMessageBubble extends StatelessWidget {
       child: content,
     );
 
-
+    if (model.needTime) {
+      content = Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: SizedBox(
+                height: 20,
+                child: Text(
+                  TimeTool.timeStrByMs(message.serverTime),
+                  style: ChatUIKit.of(context)?.theme.messagesListItemTsStyle ??
+                      const TextStyle(color: Colors.grey, fontSize: 14),
+                ),
+              ),
+            ),
+          ),
+          content
+        ],
+      );
+    }
     return content;
   }
 }
