@@ -15,7 +15,6 @@ class ChatMessageListFileItem extends ChatMessageListItem {
     super.bubbleColor,
     super.bubblePadding,
     super.unreadFlagBuilder,
-    required super.previousMessage,
   });
 
   @override

@@ -20,11 +20,9 @@ class ChatMessageListItem extends StatelessWidget {
     this.bubbleColor,
     this.bubblePadding,
     this.unreadFlagBuilder,
-    this.previousMessage,
   });
 
   final ChatMessageListItemModel model;
-  final ChatMessage? previousMessage;
   final ChatMessageTapAction? onTap;
   final ChatMessageTapAction? onBubbleLongPress;
   final ChatMessageTapAction? onBubbleDoubleTap;
@@ -43,7 +41,6 @@ class ChatMessageListItem extends StatelessWidget {
   Widget getBubbleWidget(Widget content) {
     Widget ret = ChatMessageBubble(
       model: model,
-      previousMessage: previousMessage,
       padding: bubblePadding,
       bubbleColor: bubbleColor,
       childBuilder: (context) => content,

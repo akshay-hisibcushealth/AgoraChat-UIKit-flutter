@@ -12,7 +12,6 @@ class ChatMessageListVideoItem extends ChatMessageListItem {
     super.key,
     super.bubbleColor = Colors.transparent,
     super.bubblePadding = EdgeInsets.zero,
-    required super.previousMessage,
   });
 
   final void Function(ChatMessage msg)? onPlayTap;

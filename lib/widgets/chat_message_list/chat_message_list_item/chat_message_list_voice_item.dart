@@ -15,7 +15,7 @@ class ChatMessageListVoiceItem extends ChatMessageListItem {
     super.bubbleColor,
     super.bubblePadding,
     super.unreadFlagBuilder,
-    this.isPlay = false, required super.previousMessage,
+    this.isPlay = false
   });
 
   final bool isPlay;

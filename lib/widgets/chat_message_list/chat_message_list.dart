@@ -545,8 +545,7 @@ class _ChatMessagesListState extends State<ChatMessagesList>
         ChatMessageSliver(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              return messageWidget(
-                  list[index], index != 0 ? list[index - 1].message : null);
+              return messageWidget(list[index]);
             },
             childCount: list.length,
           ),
@@ -585,8 +584,7 @@ class _ChatMessagesListState extends State<ChatMessagesList>
     return content;
   }
 
-  Widget messageWidget(
-      ChatMessageListItemModel model, ChatMessage? previousMessageModel) {
+  Widget messageWidget(ChatMessageListItemModel model) {
     ChatMessage message = model.message;
     widget.messageListViewController.sendReadAck(message);
 
@@ -598,7 +596,6 @@ class _ChatMessagesListState extends State<ChatMessagesList>
             return ChatMessageListTextItem(
               key: valueKey,
               model: model,
-              previousMessage: previousMessageModel,
               onTap: widget.onTap,
               avatarBuilder: widget.avatarBuilder,
               nicknameBuilder: widget.nicknameBuilder,
@@ -613,7 +610,6 @@ class _ChatMessagesListState extends State<ChatMessagesList>
               bubbleColor: Colors.transparent,
               key: valueKey,
               model: model,
-              previousMessage: previousMessageModel,
               onTap: widget.onTap,
               avatarBuilder: widget.avatarBuilder,
               nicknameBuilder: widget.nicknameBuilder,
@@ -627,7 +623,6 @@ class _ChatMessagesListState extends State<ChatMessagesList>
               bubbleColor: const Color.fromRGBO(242, 242, 242, 1),
               key: valueKey,
               model: model,
-              previousMessage: previousMessageModel,
               onTap: widget.onTap,
               avatarBuilder: widget.avatarBuilder,
               nicknameBuilder: widget.nicknameBuilder,
@@ -640,7 +635,6 @@ class _ChatMessagesListState extends State<ChatMessagesList>
             return ChatMessageListVoiceItem(
               key: valueKey,
               model: model,
-              previousMessage: previousMessageModel,
               onTap: widget.onTap,
               avatarBuilder: widget.avatarBuilder,
               nicknameBuilder: widget.nicknameBuilder,

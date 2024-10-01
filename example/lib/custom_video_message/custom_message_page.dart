@@ -61,7 +61,6 @@ class _CustomMessagesPageState extends State<CustomMessagesPage> {
             if (model.message.body.type == MessageType.VIDEO) {
               return ChatMessageListVideoItem(
                 model: model,
-                previousMessage: model.message,
                 onPlayTap: playVideo,
               );
             }

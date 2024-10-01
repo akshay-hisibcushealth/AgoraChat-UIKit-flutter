@@ -70,7 +70,7 @@ class TimeTool {
 
   static String getMessageDate1(int? ms, int? ms2) {
     if (ms == null || ms2 == null) {
-      return "";
+      return "$ms- $ms2";
     }
 
     DateTime date1 = DateTime.fromMillisecondsSinceEpoch(ms);
