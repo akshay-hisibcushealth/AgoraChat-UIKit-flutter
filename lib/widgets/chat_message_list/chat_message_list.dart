@@ -546,7 +546,7 @@ class _ChatMessagesListState extends State<ChatMessagesList>
           delegate: SliverChildBuilderDelegate(
             (context, index) {
               return messageWidget(
-                  list[index], index == 0 ? list[index - 1].message : null);
+                  list[index], index != 0 ? list[index - 1].message : null);
             },
             childCount: list.length,
           ),
