@@ -286,13 +286,13 @@ class _ChatInputBarState extends State<ChatInputBar> {
                       child: _currentInputType == _ChatInputType.emoji
                           ? const Icon(
                               Icons.keyboard,
-                              size: 16,
-                              color: Colors.black,
+                              size: 20,
+                              color: Colors.grey,
                             )
                           : const Icon(
                               Icons.emoji_emotions_outlined,
-                              size: 16,
-                              color: Colors.black,
+                        size: 20,
+                        color: Colors.grey,
                             )),
                 ],
               ),
