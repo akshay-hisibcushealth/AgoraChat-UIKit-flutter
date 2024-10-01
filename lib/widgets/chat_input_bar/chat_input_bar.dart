@@ -46,6 +46,7 @@ class ChatInputBar extends StatefulWidget {
   final TextEditingController textEditingController;
 
   final FocusNode focusNode;
+
   @override
   State<ChatInputBar> createState() => _ChatInputBarState();
 }
@@ -57,6 +58,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
   final GlobalKey _gestureKey = GlobalKey();
   bool _showSendBtn = false;
   _ChatVoiceOffsetType _voiceTouchType = _ChatVoiceOffsetType.noTouch;
+
   @override
   void initState() {
     super.initState();
@@ -277,25 +279,21 @@ class _ChatInputBarState extends State<ChatInputBar> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                    onTap: () {
-                      widget.emojiWidgetOnTap?.call();
-                      _updateCurrentInputType(_ChatInputType.emoji);
-                    },
-                    child: _currentInputType == _ChatInputType.emoji
-                        ? ChatImageLoader.loadImage(
-                            "input_bar_btn_selected.png",
-                            width: 20,
-                            height: 20,
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.all(2),
-                            child: ChatImageLoader.loadImage(
-                              "input_bar_emoji.png",
-                              width: 20,
-                              height: 20,
-                            ),
-                          ),
-                  ),
+                      onTap: () {
+                        widget.emojiWidgetOnTap?.call();
+                        _updateCurrentInputType(_ChatInputType.emoji);
+                      },
+                      child: _currentInputType == _ChatInputType.emoji
+                          ? const Icon(
+                              Icons.keyboard,
+                              size: 16,
+                              color: Colors.black,
+                            )
+                          : const Icon(
+                              Icons.emoji_emotions_outlined,
+                              size: 16,
+                              color: Colors.black,
+                            )),
                 ],
               ),
             ),
