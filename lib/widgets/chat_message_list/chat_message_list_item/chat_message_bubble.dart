@@ -126,28 +126,24 @@ class ChatMessageBubble extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (model.needTime) dayDivider(context, message.serverTime),
-        Column(
-          crossAxisAlignment:
-              isLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end,
-          children: [
-            content,
-            Align(
-              alignment: isLeft ? Alignment.centerLeft : Alignment.centerRight,
-              child: Transform.translate(
-                offset: const Offset(0, -12),
-                child: Padding(
-                    padding:
-                        padding ?? const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      TimeTool.timeStrByMs(message.serverTime),
-                      style:
-                          ChatUIKit.of(context)?.theme.messageTimeTextStyle ??
-                              const TextStyle(color: Colors.grey, fontSize: 14),
-                    )),
-              ),
-            )
-          ],
-        ),
+        content,
+        Align(
+          alignment: isLeft ? Alignment.centerLeft : Alignment.centerRight,
+          child: Transform.translate(
+            offset: const Offset(0, -12),
+            child: Padding(
+                padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  model.message.body.type == MessageType.IMAGE
+                      ? isLeft
+                          ? "  ${TimeTool.timeStrByMs(message.serverTime)}"
+                          : "${TimeTool.timeStrByMs(message.serverTime)}  "
+                      : TimeTool.timeStrByMs(message.serverTime),
+                  style: ChatUIKit.of(context)?.theme.messageTimeTextStyle ??
+                      const TextStyle(color: Colors.grey, fontSize: 14),
+                )),
+          ),
+        )
       ],
     );
     return content;
