@@ -367,8 +367,13 @@ class ChatMessageListController extends ChatBaseController {
     bool needShowTs = false;
     if (_latestShowTsTime < 0) {
       needShowTs = true;
-    } else if (DateTime.fromMillisecondsSinceEpoch(message.serverTime).day !=
-        DateTime.fromMillisecondsSinceEpoch(_latestShowTsTime).day) {
+    } else if (DateTime
+        .fromMillisecondsSinceEpoch(message.serverTime)
+        .day !=
+        DateTime
+            .fromMillisecondsSinceEpoch(_latestShowTsTime)
+            .day &&
+        message.serverTime > _latestShowTsTime) {
       needShowTs = true;
     }
     if (needShowTs == true && message.serverTime > _latestShowTsTime) {

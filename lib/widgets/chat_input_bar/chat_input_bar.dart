@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:agora_chat_uikit/generated/uikit_localizations.dart';
+import 'package:flutter/material.dart';
 
-import '../../tools/chat_image_loader.dart';
-import '../chat_uikit.dart';
 import 'chat_emoji_data.dart';
 import 'chat_emoji_widget.dart';
 
@@ -113,8 +111,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
                     children: [
                       InkWell(
                           child: Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: 6.0),
+                              padding: const EdgeInsets.only(bottom: 6.0),
                               child: Icon(
                                   _currentInputType == _ChatInputType.voice
                                       ? Icons.keyboard
@@ -147,60 +144,24 @@ class _ChatInputBarState extends State<ChatInputBar> {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        _showSendBtn
-                            ? InkWell(
-                          key: const ValueKey("1"),
-                          onTap: () {
-                            widget.onSendBtnTap?.call(widget
-                                .textEditingController.text
-                                .trim());
-                            widget.textEditingController.text = "";
-                          },
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(
-                                8, vPadding, 8, vPadding),
-                            decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.circular(20),
-                              color: ChatUIKit
-                                  .of(context)
-                                  ?.theme
-                                  .inputWidgetSendBtnColor ??
-                                  Colors.blue,
-                            ),
-                            child: Center(
-                              child: Text(
-                                AppLocalizations
-                                    .of(context)
-                                    ?.uikitSend ??
-                                    "Send",
-                                style: ChatUIKit
-                                    .of(context)
-                                    ?.theme
-                                    .inputWidgetSendBtnStyle ??
-                                    const TextStyle(
-                                        color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        )
-                            : InkWell(
-                            onTap: () {
-                              widget.focusNode.unfocus();
-                              widget.moreAction?.call();
-                              _updateCurrentInputType(
-                                  _ChatInputType.dismiss);
-                            },
-                            child: Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 6.0),
-                                child: Icon(
-                                    _currentInputType !=
-                                        _ChatInputType.more
-                                        ? Icons.add_circle_outline
-                                        : Icons.keyboard,
-                                    size: 28,
-                                    color: Color(0xff8D8D8D)))),
+                        if (!_showSendBtn)
+                          InkWell(
+                              onTap: () {
+                                widget.focusNode.unfocus();
+                                widget.moreAction?.call();
+                                _updateCurrentInputType(
+                                    _ChatInputType.dismiss);
+                              },
+                              child: Padding(
+                                  padding:
+                                  const EdgeInsets.only(bottom: 6.0),
+                                  child: Icon(
+                                      _currentInputType !=
+                                          _ChatInputType.more
+                                          ? Icons.add_circle_outline
+                                          : Icons.keyboard,
+                                      size: 28,
+                                      color: Color(0xff8D8D8D)))),
                       ],
                     ),
                   ),
@@ -210,11 +171,8 @@ class _ChatInputBarState extends State<ChatInputBar> {
             ],
           ),
         ),
-        _faceWidget(
-        )
-        ,
-      ]
-      ,
+        _faceWidget(),
+      ],
     );
   }
 
@@ -255,17 +213,17 @@ class _ChatInputBarState extends State<ChatInputBar> {
               focusNode: widget.focusNode,
               controller: widget.textEditingController,
               maxLines: null,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 prefixText: " ",
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                contentPadding: EdgeInsets.fromLTRB(10, 10, 0, 10),
                 isCollapsed: true,
-                labelStyle: const TextStyle(
+                labelStyle: TextStyle(
                     fontSize: 16,
                     color: Color.fromRGBO(51, 51, 51, 1),
                     fontWeight: FontWeight.w400),
                 hintText: "Type something",
-                hintStyle: const TextStyle(
+                hintStyle: TextStyle(
                     fontSize: 14,
                     color: Color.fromRGBO(191, 191, 191, 1),
                     fontWeight: FontWeight.w400),
@@ -290,17 +248,37 @@ class _ChatInputBarState extends State<ChatInputBar> {
                     },
                     child: Padding(
                         padding: const EdgeInsets.only(bottom: 6.0),
-                        child:  Icon(
+                        child: Icon(
                             _currentInputType == _ChatInputType.emoji
-                                ? Icons.keyboard : Icons
-                                .emoji_emotions_outlined,
-                            size: 24, color: Color(0xff8D8D8D))
-                    ),
+                                ? Icons.keyboard
+                                : Icons.emoji_emotions_outlined,
+                            size: 24,
+                            color: Color(0xff8D8D8D))),
                   ),
                 ],
               ),
             ),
           ),
+          //////////////
+          const SizedBox(
+            width: 5,
+          ),
+          if (_showSendBtn)
+            InkWell(
+                key: const ValueKey("1"),
+                onTap: () {
+                  widget.onSendBtnTap
+                      ?.call(widget.textEditingController.text.trim());
+                  widget.textEditingController.text = "";
+                },
+                child: Center(
+                    child: Icon(Icons.send_rounded,
+                        size: 24,
+                        color: Color(0xff8D8D8D)))
+
+            )
+
+          //////////////
         ],
       ),
     );
