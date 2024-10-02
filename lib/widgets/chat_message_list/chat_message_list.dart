@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:agora_chat_uikit/internal/chat_method.dart';
+import 'package:flutter/material.dart';
 
 import '../../agora_chat_uikit.dart';
 
@@ -367,7 +367,8 @@ class ChatMessageListController extends ChatBaseController {
     bool needShowTs = false;
     if (_latestShowTsTime < 0) {
       needShowTs = true;
-    } else if ((message.serverTime - _latestShowTsTime).abs() > 60 * 1000) {
+    } else if (DateTime.fromMillisecondsSinceEpoch(message.serverTime).day !=
+        DateTime.fromMillisecondsSinceEpoch(_latestShowTsTime).day) {
       needShowTs = true;
     }
     if (needShowTs == true && message.serverTime > _latestShowTsTime) {
