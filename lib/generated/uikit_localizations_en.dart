@@ -58,7 +58,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get uikitCopy => 'Copy';
 
   @override
-  String get uikitRecall => 'Delete For Everyone';
+  String get uikitRecall => 'Recall';
 
   @override
   String get uikitSend => 'Send';

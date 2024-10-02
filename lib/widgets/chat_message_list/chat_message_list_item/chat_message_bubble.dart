@@ -123,27 +123,6 @@ class ChatMessageBubble extends StatelessWidget {
       child: content,
     );
 
-    if (model.needTime) {
-      content = Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: SizedBox(
-                height: 20,
-                child: Text(
-                  TimeTool.timeStrByMs(message.serverTime),
-                  style: ChatUIKit.of(context)?.theme.messagesListItemTsStyle ??
-                      const TextStyle(color: Colors.grey, fontSize: 14),
-                ),
-              ),
-            ),
-          ),
-          content
-        ],
-      );
-    }
     return content;
   }
 }

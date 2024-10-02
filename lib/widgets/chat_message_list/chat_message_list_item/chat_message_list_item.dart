@@ -3,9 +3,7 @@ import 'dart:math';
 import 'package:agora_chat_uikit/agora_chat_uikit.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../em_chat_define.dart';
-import '../../../models/chat_message_list_item_model.dart';
-import 'chat_message_bubble.dart';
+
 
 class ChatMessageListItem extends StatelessWidget {
   const ChatMessageListItem({
