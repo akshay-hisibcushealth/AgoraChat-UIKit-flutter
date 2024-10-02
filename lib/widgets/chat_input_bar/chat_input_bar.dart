@@ -130,42 +130,40 @@ class _ChatInputBarState extends State<ChatInputBar> {
                     ? _inputWidget()
                     : _voiceWidget(),
               ),
-                  () {
-                String? name = AppLocalizations
-                    .of(context)
-                    ?.localeName;
+              () {
+                String? name = AppLocalizations.of(context)?.localeName;
                 final vPadding = name == "zh" ? 8.0 : 10.0;
                 return _currentInputType != _ChatInputType.voice
                     ? Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 3, 4, 2.5),
-                  child: Offstage(
-                    offstage: !widget.enableMore,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        if (!_showSendBtn)
-                          InkWell(
-                              onTap: () {
-                                widget.focusNode.unfocus();
-                                widget.moreAction?.call();
-                                _updateCurrentInputType(
-                                    _ChatInputType.dismiss);
-                              },
-                              child: Padding(
-                                  padding:
-                                  const EdgeInsets.only(bottom: 6.0),
-                                  child: Icon(
-                                      _currentInputType !=
-                                          _ChatInputType.more
-                                          ? Icons.add_circle_outline
-                                          : Icons.keyboard,
-                                      size: 28,
-                                      color: Color(0xff8D8D8D)))),
-                      ],
-                    ),
-                  ),
-                )
+                        padding: const EdgeInsets.fromLTRB(10, 3, 4, 2.5),
+                        child: Offstage(
+                          offstage: !widget.enableMore,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              if (!_showSendBtn)
+                                InkWell(
+                                    onTap: () {
+                                      widget.focusNode.unfocus();
+                                      widget.moreAction?.call();
+                                      _updateCurrentInputType(
+                                          _ChatInputType.dismiss);
+                                    },
+                                    child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 6.0),
+                                        child: Icon(
+                                            _currentInputType !=
+                                                    _ChatInputType.more
+                                                ? Icons.add_circle_outline
+                                                : Icons.keyboard,
+                                            size: 28,
+                                            color: Color(0xff8D8D8D)))),
+                            ],
+                          ),
+                        ),
+                      )
                     : Container();
               }(),
             ],
@@ -271,12 +269,12 @@ class _ChatInputBarState extends State<ChatInputBar> {
                       ?.call(widget.textEditingController.text.trim());
                   widget.textEditingController.text = "";
                 },
-                child: Center(
-                    child: Icon(Icons.send_rounded,
-                        size: 24,
-                        color: Color(0xff8D8D8D)))
-
-            )
+                child: const SizedBox(
+                  height: 32,
+                  child: Center(
+                      child: Icon(Icons.send_rounded,
+                          size: 24, color: Color(0xff8D8D8D))),
+                ))
 
           //////////////
         ],
@@ -301,22 +299,16 @@ class _ChatInputBarState extends State<ChatInputBar> {
         key: _gestureKey,
         child: Center(
           child: Text(
-                () {
+            () {
               switch (_voiceTouchType) {
                 case _ChatVoiceOffsetType.noTouch:
-                  return AppLocalizations
-                      .of(context)
-                      ?.holdToTalk ??
+                  return AppLocalizations.of(context)?.holdToTalk ??
                       "Hold to Talk";
                 case _ChatVoiceOffsetType.dragInside:
-                  return AppLocalizations
-                      .of(context)
-                      ?.releaseToSend ??
+                  return AppLocalizations.of(context)?.releaseToSend ??
                       "Release to Send";
                 case _ChatVoiceOffsetType.dragOutside:
-                  return AppLocalizations
-                      .of(context)
-                      ?.releaseToCancel ??
+                  return AppLocalizations.of(context)?.releaseToCancel ??
                       "Release to Cancel";
               }
             }(),
@@ -435,7 +427,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
 
   _onPointerMove(PointerMoveEvent event) {
     RenderBox renderBox =
-    _gestureKey.currentContext?.findRenderObject() as RenderBox;
+        _gestureKey.currentContext?.findRenderObject() as RenderBox;
     Offset offset = event.localPosition;
     bool outside = false;
     if (offset.dx < 0 || offset.dy < 0) {
@@ -459,7 +451,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
 
   _onPointerUp(PointerUpEvent event) {
     RenderBox renderBox =
-    _gestureKey.currentContext?.findRenderObject() as RenderBox;
+        _gestureKey.currentContext?.findRenderObject() as RenderBox;
     Offset offset = event.localPosition;
     bool outside = false;
     if (offset.dx < 0 || offset.dy < 0) {
