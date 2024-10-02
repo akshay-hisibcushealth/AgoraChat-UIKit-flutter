@@ -26,25 +26,14 @@ class ChatMessageListTextItem extends ChatMessageListItem {
     bool isLeft = message.direction == MessageDirection.RECEIVE;
     ChatTextMessageBody body = message.body as ChatTextMessageBody;
 
-    Widget content = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          body.content,
-          style: contentStyle ??
-              (isLeft
-                  ? ChatUIKit.of(context)?.theme.receiveTextStyle ??
-                      const TextStyle(color: Colors.black)
-                  : ChatUIKit.of(context)?.theme.sendTextStyle) ??
-              const TextStyle(color: Colors.white),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          TimeTool.timeStrByMs(message.serverTime),
-          style: ChatUIKit.of(context)?.theme.messagesListItemTsStyle ??
-              const TextStyle(color: Colors.grey, fontSize: 14),
-        )
-      ],
+    Widget content = Text(
+      body.content,
+      style: contentStyle ??
+          (isLeft
+              ? ChatUIKit.of(context)?.theme.receiveTextStyle ??
+              const TextStyle(color: Colors.black)
+              : ChatUIKit.of(context)?.theme.sendTextStyle) ??
+          const TextStyle(color: Colors.white),
     );
 
     return getBubbleWidget(content);
