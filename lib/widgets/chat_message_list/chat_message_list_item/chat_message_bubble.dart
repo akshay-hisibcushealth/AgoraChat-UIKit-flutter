@@ -122,7 +122,29 @@ class ChatMessageBubble extends StatelessWidget {
       onLongPress: () => onBubbleLongPress?.call(context, message),
       child: content,
     );
+    if (model.needTime) {
+      content = Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          content,
+          Align(
+            alignment: isLeft ? Alignment.centerLeft : Alignment.centerRight,
+            child: Transform.translate(offset: Offset(0,-12),child: Padding(
+                padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  TimeTool.timeStrByMs(message.serverTime),
+                  style: ChatUIKit
+                      .of(context)
+                      ?.theme
+                      .messagesListItemTsStyle ??
+                      const TextStyle(color: Colors.grey, fontSize: 14),
+                )
+            ),),
+          )
 
+        ],
+      );
+    }
     return content;
   }
 }
