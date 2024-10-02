@@ -26,7 +26,7 @@ class ChatUIKitTheme {
   ///
   /// Param [conversationListItemTsStyle] is the text style of the conversation list item timestamp.
   ///
-  /// Param [messagesListItemTsStyle] is the text style of the messages list item timestamp.
+  /// Param [dayDividerTextStyle] is the text style of the messages list item timestamp.
   ///
   /// Param [inputWidgetSendBtnColor] is the color of the input widget send button.
   ///
@@ -47,8 +47,8 @@ class ChatUIKitTheme {
         const TextStyle(fontSize: 14, overflow: TextOverflow.ellipsis),
     this.conversationListItemTsStyle =
         const TextStyle(color: Colors.grey, fontSize: 14),
-    this.messagesListItemTsStyle =
-        const TextStyle(color: Colors.grey, fontSize: 14),
+    this.messageTimeTextStyle = const TextStyle(color: Colors.grey, fontSize: 14),
+    this.dayDividerTextStyle = const TextStyle(color: Colors.grey, fontSize: 14),
     this.inputWidgetSendBtnColor = Colors.blue,
     this.inputWidgetSendBtnStyle = const TextStyle(color: Colors.white),
   });
@@ -66,6 +66,7 @@ class ChatUIKitTheme {
   final TextStyle conversationListItemTitleStyle;
   final TextStyle conversationListItemSubTitleStyle;
   final TextStyle conversationListItemTsStyle;
-  final TextStyle messagesListItemTsStyle;
+  final TextStyle dayDividerTextStyle;
+  final TextStyle messageTimeTextStyle;
   final TextStyle inputWidgetSendBtnStyle;
 }
