@@ -136,8 +136,8 @@ class ChatMessageBubble extends StatelessWidget {
                 child: Text(
                   model.message.body.type == MessageType.IMAGE
                       ? isLeft
-                          ? TimeTool.timeStrByMs(message.serverTime).padLeft(8)
-                          : TimeTool.timeStrByMs(message.serverTime).padRight(8)
+                          ? TimeTool.timeStrByMs(message.serverTime).padLeft(12)
+                          : TimeTool.timeStrByMs(message.serverTime).padRight(12)
                       : TimeTool.timeStrByMs(message.serverTime),
                   style: ChatUIKit.of(context)?.theme.messageTimeTextStyle ??
                       const TextStyle(color: Colors.grey, fontSize: 14),
