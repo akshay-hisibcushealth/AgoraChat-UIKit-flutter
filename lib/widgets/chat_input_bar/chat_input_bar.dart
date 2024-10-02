@@ -118,7 +118,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
                                       ? Icons.keyboard
                                       : Icons.mic,
                                   size: 28,
-                                  color: Color(0xff8D8D8D))),
+                                  color: const Color(0xff8D8D8D))),
                           onTap: () {
                             _updateCurrentInputType(_ChatInputType.voice);
                           }),
@@ -160,7 +160,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
                                                 ? Icons.add_circle_outline
                                                 : Icons.keyboard,
                                             size: 28,
-                                            color: Color(0xff8D8D8D)))),
+                                            color: const Color(0xff8D8D8D)))),
                             ],
                           ),
                         ),
@@ -246,13 +246,13 @@ class _ChatInputBarState extends State<ChatInputBar> {
                       _updateCurrentInputType(_ChatInputType.emoji);
                     },
                     child: Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
+                        padding: const EdgeInsets.only(bottom: 6.0),
                         child: Icon(
                             _currentInputType == _ChatInputType.emoji
                                 ? Icons.keyboard
                                 : Icons.emoji_emotions_outlined,
                             size: 24,
-                            color: Color(0xff8D8D8D))),
+                            color: const Color(0xff8D8D8D))),
                   ),
                 ],
               ),
@@ -270,21 +270,11 @@ class _ChatInputBarState extends State<ChatInputBar> {
                     ?.call(widget.textEditingController.text.trim());
                 widget.textEditingController.text = "";
               },
-              child: Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(64),
-                  color: ChatUIKit.of(context)?.theme.inputWidgetSendBtnColor ??
-                      Colors.blue,
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Icon(Icons.send_rounded, color: Colors.white),
-                  ),
-                ),
-              ),
+              child: const Padding(
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: Icon( Icons.send_rounded,
+                      size: 24,
+                      color: Color(0xff8D8D8D))),
             )
 
           //////////////
