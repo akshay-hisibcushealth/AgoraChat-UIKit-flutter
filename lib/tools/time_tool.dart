@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 enum TimeType {
   today,
   month,
@@ -5,48 +7,37 @@ enum TimeType {
 }
 
 class TimeTool {
-  static TimeType _timeType(int ms) {
-    DateTime now = DateTime.now();
-    DateTime dateToCheck = DateTime.fromMillisecondsSinceEpoch(ms);
-    if (now.year == dateToCheck.year) {
-      if (now.month == dateToCheck.month) {
-        if (now.day == dateToCheck.day) {
-          return TimeType.today;
-        } else {
-          return TimeType.month;
-        }
-      } else {
-        return TimeType.year;
-      }
-    } else {
-      return TimeType.year;
-    }
-  }
-
   static String timeStrByMs(int? ms) {
     if (ms == null) {
       return "";
     }
 
-    TimeType type = _timeType(ms);
     DateTime date = DateTime.fromMillisecondsSinceEpoch(ms);
-    String ret = "";
-    switch (type) {
-      case TimeType.today:
-        ret =
-            "${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
-        break;
-      case TimeType.month:
-        ret =
-            "${date.month.toString().padLeft(2, '0')}/${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
-        break;
-      case TimeType.year:
-        ret =
-            "${date.year.toString()}/${date.month.toString().padLeft(2, '0')}/${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
-        break;
-    }
-    return ret;
+    String formattedTime = DateFormat('hh:mm a').format(date);
+
+    return formattedTime;
   }
+
+  static String timeDate(int? ms) {
+    if (ms == null) {
+      return "";
+    }
+
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(ms);
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+    String today = DateFormat('yyyy-MM-dd').format(now);
+    String yesterday = DateFormat('yyyy-MM-dd').format(now.subtract(Duration(days: 1)));
+
+    if (formattedDate == today) {
+      return "TODAY";
+    } else if (formattedDate == yesterday) {
+      return "YESTERDAY";
+    } else {
+      return formattedDate;
+    }
+  }
+
 
   static String durationStr(int duration) {
     if (duration <= 60) {

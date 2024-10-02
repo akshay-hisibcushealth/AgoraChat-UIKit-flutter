@@ -35,7 +35,10 @@ class ChatMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double max = maxWidth ?? MediaQuery.of(context).size.width * 0.7;
+    double max = maxWidth ?? MediaQuery
+        .of(context)
+        .size
+        .width * 0.7;
     final boxConstraints = BoxConstraints(maxWidth: max);
     ChatMessage message = model.message;
     bool isLeft = message.direction == MessageDirection.RECEIVE;
@@ -43,10 +46,16 @@ class ChatMessageBubble extends StatelessWidget {
       decoration: BoxDecoration(
         color: bubbleColor ??
             (isLeft
-                ? ChatUIKit.of(context)?.theme.receiveBubbleColor ??
-                    const Color.fromRGBO(242, 244, 245, 1)
-                : ChatUIKit.of(context)?.theme.sendBubbleColor ??
-                    const Color.fromRGBO(71, 121, 217, 1)),
+                ? ChatUIKit
+                .of(context)
+                ?.theme
+                .receiveBubbleColor ??
+                const Color.fromRGBO(242, 244, 245, 1)
+                : ChatUIKit
+                .of(context)
+                ?.theme
+                .sendBubbleColor ??
+                const Color.fromRGBO(71, 121, 217, 1)),
         borderRadius: BorderRadius.circular(isLeft ? 16 : 20),
       ),
       constraints: boxConstraints,
@@ -71,7 +80,7 @@ class ChatMessageBubble extends StatelessWidget {
       content = Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment:
-            isLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+        isLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end,
         children: insideBubbleWidgets.toList(),
       );
       insideBubbleWidgets.clear();
@@ -122,14 +131,17 @@ class ChatMessageBubble extends StatelessWidget {
       onLongPress: () => onBubbleLongPress?.call(context, message),
       child: content,
     );
-    if (model.needTime) {
-      content = Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          content,
-          Align(
-            alignment: isLeft ? Alignment.centerLeft : Alignment.centerRight,
-            child: Transform.translate(offset: Offset(0,-12),child: Padding(
+    content = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (model.needTime) dayDivider(message.serverTime),
+        content,
+        Align(
+          alignment: isLeft ? Alignment.centerLeft : Alignment.centerRight,
+          child: Transform.translate(
+            offset: Offset(0,
+                -12),
+            child: Padding(
                 padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   TimeTool.timeStrByMs(message.serverTime),
@@ -138,13 +150,36 @@ class ChatMessageBubble extends StatelessWidget {
                       ?.theme
                       .messagesListItemTsStyle ??
                       const TextStyle(color: Colors.grey, fontSize: 14),
-                )
-            ),),
-          )
-
-        ],
-      );
-    }
+                )),
+          ),
+        )
+      ],
+    );
     return content;
   }
+
+  Widget dayDivider(int? time) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Expanded(
+            child: Divider(color: Color(0xffD9D9D9), thickness: 1, indent: 32),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              TimeTool.timeDate(time),
+              style: const TextStyle(color: Colors.grey, fontSize: 12),
+            ),
+          ),
+          const Expanded(
+            child: Divider(color: Color(0xffD9D9D9), thickness: 1, endIndent: 32),
+          ),
+        ],
+      ),
+    );
+  }
+
 }
