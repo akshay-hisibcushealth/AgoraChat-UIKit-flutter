@@ -164,7 +164,7 @@ class ChatMessageBubble extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             child: Text(
               TimeTool.timeDate(time),
-              style: ChatUIKit.of(context)?.theme.messageTimeTextStyle ??
+              style: ChatUIKit.of(context)?.theme.dayDividerTextStyle ??
                   const TextStyle(color: Colors.grey, fontSize: 14),
             ),
           ),
