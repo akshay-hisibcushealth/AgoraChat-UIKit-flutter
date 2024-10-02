@@ -125,33 +125,35 @@ class ChatMessageBubble extends StatelessWidget {
     content = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (model.needTime) dayDivider(context,message.serverTime),
-        content,
-        Align(
-          alignment: isLeft ? Alignment.centerLeft : Alignment.centerRight,
-          child: Transform.translate(
-            offset: Offset(
-                model.message.body.type == MessageType.IMAGE
-                    ? isLeft
-                        ? -16
-                        : 16
-                    : 0,
-                -12),
-            child: Padding(
-                padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  TimeTool.timeStrByMs(message.serverTime),
-                  style: ChatUIKit.of(context)?.theme.messageTimeTextStyle ??
-                      const TextStyle(color: Colors.grey, fontSize: 14),
-                )),
-          ),
-        )
+        if (model.needTime) dayDivider(context, message.serverTime),
+        Column(
+          crossAxisAlignment:
+              isLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+          children: [
+            content,
+            Align(
+              alignment: isLeft ? Alignment.centerLeft : Alignment.centerRight,
+              child: Transform.translate(
+                offset: const Offset(0, -12),
+                child: Padding(
+                    padding:
+                        padding ?? const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      TimeTool.timeStrByMs(message.serverTime),
+                      style:
+                          ChatUIKit.of(context)?.theme.messageTimeTextStyle ??
+                              const TextStyle(color: Colors.grey, fontSize: 14),
+                    )),
+              ),
+            )
+          ],
+        ),
       ],
     );
     return content;
   }
 
-  Widget dayDivider(BuildContext context,int? time) {
+  Widget dayDivider(BuildContext context, int? time) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Row(
