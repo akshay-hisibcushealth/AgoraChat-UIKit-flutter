@@ -1,6 +1,7 @@
 import 'package:agora_chat_uikit/generated/uikit_localizations.dart';
 import 'package:flutter/material.dart';
 
+import '../chat_uikit.dart';
 import 'chat_emoji_data.dart';
 import 'chat_emoji_widget.dart';
 
@@ -245,7 +246,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
                       _updateCurrentInputType(_ChatInputType.emoji);
                     },
                     child: Padding(
-                        padding: const EdgeInsets.only(bottom: 6.0),
+                        padding: const EdgeInsets.only(bottom: 10.0),
                         child: Icon(
                             _currentInputType == _ChatInputType.emoji
                                 ? Icons.keyboard
@@ -263,18 +264,28 @@ class _ChatInputBarState extends State<ChatInputBar> {
           ),
           if (_showSendBtn)
             InkWell(
-                key: const ValueKey("1"),
-                onTap: () {
-                  widget.onSendBtnTap
-                      ?.call(widget.textEditingController.text.trim());
-                  widget.textEditingController.text = "";
-                },
-                child: const SizedBox(
-                  height: 32,
+              key: const ValueKey("1"),
+              onTap: () {
+                widget.onSendBtnTap
+                    ?.call(widget.textEditingController.text.trim());
+                widget.textEditingController.text = "";
+              },
+              child: Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(64),
+                  color: ChatUIKit.of(context)?.theme.inputWidgetSendBtnColor ??
+                      Colors.blue,
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Center(
-                      child: Icon(Icons.send_rounded,
-                          size: 24, color: Color(0xff8D8D8D))),
-                ))
+                    child: Icon(Icons.send_rounded, color: Colors.white),
+                  ),
+                ),
+              ),
+            )
 
           //////////////
         ],
