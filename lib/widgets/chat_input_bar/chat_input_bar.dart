@@ -271,7 +271,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
                 widget.textEditingController.text = "";
               },
               child: const Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
+                  padding: EdgeInsets.only(bottom: 10.0,right: 6),
                   child: Icon( Icons.send_rounded,
                       size: 24,
                       color: Color(0xff8D8D8D))),
