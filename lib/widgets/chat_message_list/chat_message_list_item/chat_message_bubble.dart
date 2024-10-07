@@ -125,7 +125,7 @@ class ChatMessageBubble extends StatelessWidget {
     content = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (model.needTime) dayDivider(context, message.serverTime),
+        // if (model.needTime) dayDivider(context, message.serverTime),
         content,
         Align(
           alignment: isLeft ? Alignment.centerLeft : Alignment.centerRight,

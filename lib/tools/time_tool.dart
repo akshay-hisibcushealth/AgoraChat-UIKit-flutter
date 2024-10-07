@@ -13,11 +13,17 @@ class TimeTool {
     }
 
     DateTime date = DateTime.fromMillisecondsSinceEpoch(ms);
-    String formattedTime = DateFormat('hh:mm a').format(date);
+    DateTime now = DateTime.now();
 
-    return formattedTime;
+    // Check if the date is today
+    bool isToday = date.year == now.year && date.month == now.month && date.day == now.day;
+
+    if (isToday) {
+      return DateFormat('hh:mm a').format(date);
+    } else {
+      return DateFormat('hh:mm a - MM/dd').format(date);
+    }
   }
-
   static String timeDate(int? ms) {
     if (ms == null) {
       return "";
