@@ -33,7 +33,7 @@ class TimeTool {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd').format(date);
     String today = DateFormat('yyyy-MM-dd').format(now);
-    String yesterday = DateFormat('yyyy-MM-dd').format(now.subtract(Duration(days: 1)));
+    String yesterday = DateFormat('yyyy-MM-dd').format(now.subtract(const Duration(days: 1)));
 
     if (formattedDate == today) {
       return "TODAY";
