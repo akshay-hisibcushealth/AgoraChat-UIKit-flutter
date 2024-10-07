@@ -26,16 +26,33 @@ class ChatMessageListTextItem extends ChatMessageListItem {
     bool isLeft = message.direction == MessageDirection.RECEIVE;
     ChatTextMessageBody body = message.body as ChatTextMessageBody;
 
+    // Convert Unicode sequences (like U+XXXX) into actual characters
+    String contentText = decodeUnicode(body.content);
+    print("Original Text: ${body.content}, Decoded Text: $contentText");
+
     Widget content = Text(
-      body.content,
+      contentText,
       style: contentStyle ??
           (isLeft
-              ? ChatUIKit.of(context)?.theme.receiveTextStyle ??
+              ? ChatUIKit
+              .of(context)
+              ?.theme
+              .receiveTextStyle ??
               const TextStyle(color: Colors.black)
-              : ChatUIKit.of(context)?.theme.sendTextStyle) ??
+              : ChatUIKit
+              .of(context)
+              ?.theme
+              .sendTextStyle) ??
           const TextStyle(color: Colors.white),
     );
 
     return getBubbleWidget(content);
+  }
+
+  String decodeUnicode(String content) {
+    return content.replaceAllMapped(
+      RegExp(r'U\+([0-9A-Fa-f]{4,6})'),
+          (match) => String.fromCharCode(int.parse(match.group(1)!, radix: 16)),
+    );
   }
 }
