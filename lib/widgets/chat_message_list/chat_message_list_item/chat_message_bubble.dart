@@ -51,7 +51,7 @@ class ChatMessageBubble extends StatelessWidget {
       ),
       constraints: boxConstraints,
       child: Padding(
-        padding: padding ?? const EdgeInsets.fromLTRB(12, 0, 12, 0),
+        padding: padding ?? const EdgeInsets.fromLTRB(12, 8, 12, 8),
         child: childBuilder(context),
       ),
     );
@@ -112,7 +112,7 @@ class ChatMessageBubble extends StatelessWidget {
     }
 
     content = Padding(
-      padding: EdgeInsets.fromLTRB(15, 15, isLeft ? 7.5 : 15, 15),
+      padding: EdgeInsets.fromLTRB(15, 0, isLeft ? 7.5 : 15, 15),
       child: content,
     );
 
