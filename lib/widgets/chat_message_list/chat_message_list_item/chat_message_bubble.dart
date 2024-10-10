@@ -112,7 +112,7 @@ class ChatMessageBubble extends StatelessWidget {
     }
 
     content = Padding(
-      padding: EdgeInsets.fromLTRB(15, 0, isLeft ? 7.5 : 15, 15),
+      padding: EdgeInsets.fromLTRB(15, 4, isLeft ? 7.5 : 15, 15),
       child: content,
     );
 
