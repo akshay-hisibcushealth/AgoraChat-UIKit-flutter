@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../agora_chat_uikit.dart';
 import '../../widgets/chat_image_show_widget/chat_image_show_widget.dart';
@@ -134,11 +135,13 @@ class _ChatMessagesViewState extends State<ChatMessagesView> {
   final AudioPlayer _player = AudioPlayer();
   final FocusNode _focusNode = FocusNode();
   int _recordDuration = 0;
+
   // bool _recordBtnTouchDown = false;
   // bool _dragOutside = false;
   Timer? _timer;
   late TextEditingController _textController;
   ChatMessage? _playingMessage;
+
   @override
   void initState() {
     super.initState();
@@ -345,7 +348,7 @@ class _ChatMessagesViewState extends State<ChatMessagesView> {
           AppLocalizations.of(context)?.uikitAlbum ?? 'Album', onTap: () async {
         Navigator.of(context).pop();
         _openImagePicker();
-      }),/*
+      }), /*
       ChatBottomSheetItem.normal(
           AppLocalizations.of(context)?.uikitFiles ?? 'Files', onTap: () async {
         Navigator.of(context).pop();
@@ -488,7 +491,11 @@ class _ChatMessagesViewState extends State<ChatMessagesView> {
     // });
     bool isRequest = false;
     Future(() async {
-      return await _audioRecorder.hasPermission();
+      if (Platform.isIOS) {
+        requestAudioRecordingPermission();
+      } else {
+        return await _audioRecorder.hasPermission();
+      }
     }).timeout(const Duration(milliseconds: 500), onTimeout: () {
       isRequest = true;
       return false;
@@ -539,7 +546,9 @@ class _ChatMessagesViewState extends State<ChatMessagesView> {
         return;
       }
     }
-    bool permission = await _audioRecorder.hasPermission();
+    bool permission = Platform.isIOS
+        ? await requestAudioRecordingPermission()
+        : await _audioRecorder.hasPermission();
     if (permission) {
       widget.onError?.call(ChatUIKitError.toChatError(
           ChatUIKitError.recordError, 'record error'));
@@ -616,4 +625,27 @@ class _ChatMessagesViewState extends State<ChatMessagesView> {
   //       "amplitude:${amplitude.current}, max:${amplitude.max}, dL:${amplitude.current / amplitude.max}");
   //   return _recordBtnTouchDown;
   // }
+
+  Future<bool> requestAudioRecordingPermission() async {
+    try {
+      await _checkPermission();
+      return await _requestPermission();
+    } on PlatformException catch (e) {
+      print('Error requesting audio recording permission: ${e.message}');
+      return false;
+    }
+  }
+
+  Future<void> _checkPermission() async {
+    final status = await Permission.microphone.status;
+    if (status.isDenied || status.isPermanentlyDenied) {
+      throw PlatformException(
+          code: 'permission_denied', message: 'Microphone permission denied');
+    }
+  }
+
+  Future<bool> _requestPermission() async {
+    final status = await Permission.microphone.request();
+    return status.isGranted;
+  }
 }
