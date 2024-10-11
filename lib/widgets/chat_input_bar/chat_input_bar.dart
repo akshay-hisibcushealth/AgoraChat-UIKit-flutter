@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:agora_chat_uikit/generated/uikit_localizations.dart';
 import 'package:flutter/material.dart';
 
-import '../chat_uikit.dart';
 import 'chat_emoji_data.dart';
 import 'chat_emoji_widget.dart';
 
@@ -102,30 +103,31 @@ class _ChatInputBarState extends State<ChatInputBar> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(3, 3, 6, 4),
-                child: Offstage(
-                  offstage: !widget.enableVoice,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                          child: Padding(
-                              padding: const EdgeInsets.only(bottom: 6.0),
-                              child: Icon(
-                                  _currentInputType == _ChatInputType.voice
-                                      ? Icons.keyboard
-                                      : Icons.mic,
-                                  size: 28,
-                                  color: const Color(0xff8D8D8D))),
-                          onTap: () {
-                            _updateCurrentInputType(_ChatInputType.voice);
-                          }),
-                    ],
+              if (Platform.isAndroid)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(3, 3, 6, 4),
+                  child: Offstage(
+                    offstage: !widget.enableVoice,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                            child: Padding(
+                                padding: const EdgeInsets.only(bottom: 6.0),
+                                child: Icon(
+                                    _currentInputType == _ChatInputType.voice
+                                        ? Icons.keyboard
+                                        : Icons.mic,
+                                    size: 28,
+                                    color: const Color(0xff8D8D8D))),
+                            onTap: () {
+                              _updateCurrentInputType(_ChatInputType.voice);
+                            }),
+                      ],
+                    ),
                   ),
                 ),
-              ),
               Expanded(
                 child: _currentInputType != _ChatInputType.voice
                     ? _inputWidget()
@@ -271,10 +273,9 @@ class _ChatInputBarState extends State<ChatInputBar> {
                 widget.textEditingController.text = "";
               },
               child: const Padding(
-                  padding: EdgeInsets.only(bottom: 10.0,right: 6),
-                  child: Icon( Icons.send_rounded,
-                      size: 24,
-                      color: Color(0xff8D8D8D))),
+                  padding: EdgeInsets.only(bottom: 10.0, right: 6),
+                  child: Icon(Icons.send_rounded,
+                      size: 24, color: Color(0xff8D8D8D))),
             )
 
           //////////////
