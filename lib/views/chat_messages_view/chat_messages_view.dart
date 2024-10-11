@@ -492,7 +492,7 @@ class _ChatMessagesViewState extends State<ChatMessagesView> {
     bool isRequest = false;
     Future(() async {
       if (Platform.isIOS) {
-        requestAudioRecordingPermission();
+        await requestAudioRecordingPermission();
       } else {
         return await _audioRecorder.hasPermission();
       }
