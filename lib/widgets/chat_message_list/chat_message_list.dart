@@ -539,7 +539,7 @@ class _ChatMessagesListState extends State<ChatMessagesList>
     List<ChatMessageListItemModel> list =
         widget.messageListViewController.msgList;
 
-    if (list.isEmpty) {
+    if (list.isEmpty || list.length==1) {
       return Center(
           child: SvgPicture.asset("assets/images/svgs/no_conversation.svg"));
     }
