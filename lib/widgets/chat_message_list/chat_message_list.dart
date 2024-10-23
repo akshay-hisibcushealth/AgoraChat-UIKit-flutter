@@ -1,5 +1,6 @@
 import 'package:agora_chat_uikit/internal/chat_method.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../agora_chat_uikit.dart';
 
@@ -367,12 +368,8 @@ class ChatMessageListController extends ChatBaseController {
     bool needShowTs = false;
     if (_latestShowTsTime < 0) {
       needShowTs = true;
-    } else if (DateTime
-        .fromMillisecondsSinceEpoch(message.serverTime)
-        .day !=
-        DateTime
-            .fromMillisecondsSinceEpoch(_latestShowTsTime)
-            .day &&
+    } else if (DateTime.fromMillisecondsSinceEpoch(message.serverTime).day !=
+            DateTime.fromMillisecondsSinceEpoch(_latestShowTsTime).day &&
         message.serverTime > _latestShowTsTime) {
       needShowTs = true;
     }
@@ -541,6 +538,11 @@ class _ChatMessagesListState extends State<ChatMessagesList>
   Widget build(BuildContext context) {
     List<ChatMessageListItemModel> list =
         widget.messageListViewController.msgList;
+
+    if (list.isEmpty) {
+      return Center(
+          child: SvgPicture.asset("assets/images/svgs/no_conversation.svg"));
+    }
 
     Widget content = CustomScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
