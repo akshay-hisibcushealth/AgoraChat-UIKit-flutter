@@ -348,12 +348,12 @@ class _ChatMessagesViewState extends State<ChatMessagesView> {
           AppLocalizations.of(context)?.uikitAlbum ?? 'Album', onTap: () async {
         Navigator.of(context).pop();
         _openImagePicker();
-      }), /*
+      }),
       ChatBottomSheetItem.normal(
           AppLocalizations.of(context)?.uikitFiles ?? 'Files', onTap: () async {
         Navigator.of(context).pop();
         _openFilePicker();
-      }),*/
+      }),
     ];
   }
 
