@@ -627,17 +627,22 @@ class _ChatMessagesListState extends State<ChatMessagesList>
                   widget.messageListViewController.sendMessage(message),
             );
           } else if (message.body.type == MessageType.FILE) {
-            return ChatMessageListFileItem(
-              bubbleColor: const Color.fromRGBO(242, 242, 242, 1),
-              key: valueKey,
-              model: model,
-              onTap: widget.onTap,
-              avatarBuilder: widget.avatarBuilder,
-              nicknameBuilder: widget.nicknameBuilder,
-              onBubbleDoubleTap: widget.onBubbleDoubleTap,
-              onBubbleLongPress: widget.onBubbleLongPress,
-              onResendTap: () =>
-                  widget.messageListViewController.sendMessage(message),
+            return GestureDetector(
+              onTap: (){
+                chatClient.chatManager.downloadAttachment(message);
+              },
+              child: ChatMessageListFileItem(
+                bubbleColor: const Color.fromRGBO(242, 242, 242, 1),
+                key: valueKey,
+                model: model,
+                onTap: widget.onTap,
+                avatarBuilder: widget.avatarBuilder,
+                nicknameBuilder: widget.nicknameBuilder,
+                onBubbleDoubleTap: widget.onBubbleDoubleTap,
+                onBubbleLongPress: widget.onBubbleLongPress,
+                onResendTap: () =>
+                    widget.messageListViewController.sendMessage(message),
+              ),
             );
           } else if (message.body.type == MessageType.VOICE) {
             return ChatMessageListVoiceItem(
